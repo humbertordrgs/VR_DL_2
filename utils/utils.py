@@ -38,7 +38,7 @@ def execution_time(func):
     res = func(*args, **kwargs)
     print(
       "{function_name}: {time:.5f} seconds".format(
-        function_name= func._name_ if func.getattr('__name__', None) else 'Constructor',
+        function_name= func._name_ if '__name__' in dir(func) else 'Constructor',
         time=(
           time.time() - start_time
         )
