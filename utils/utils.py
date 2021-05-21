@@ -1,5 +1,12 @@
 import os
 from PIL import Image
+from torchvision import transforms
+
+preprocess_pipeline = transforms.Compose([
+  transforms.Resize(256),
+  transforms.CenterCrop(224),
+  transforms.ToTensor(),
+])
 
 def get_class_map(mapping_file_path):
   class_map = {}
@@ -20,6 +27,6 @@ def load_images(image_gallery_path):
         images[class_name].append(file_name)
   return images
 
-def get_processed_img(img_path, preprocess_pipeline):
+def get_processed_img(img_path):
   image = Image.open(img_path)
   return preprocess_pipeline(image)
