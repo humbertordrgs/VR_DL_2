@@ -10,7 +10,7 @@ def get_class_map(mapping_file_path):
       class_map[parts[1]] = parts[0].replace('-','_')
   return class_map
 
-def load_images(image_gallery_path, mapping_file_path): 
+def load_images(image_gallery_path): 
   images = {}
   if (os.path.isdir(image_gallery_path)):
     for class_name in os.listdir(image_gallery_path):
