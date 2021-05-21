@@ -1,4 +1,6 @@
 import os
+from PIL import Image
+
 def load_images(image_gallery_path, mapping_file_path):
   class_map = {}
   with open(mapping_file_path,'r') as f1:
@@ -15,3 +17,8 @@ def load_images(image_gallery_path, mapping_file_path):
       for file_name in os.listdir(image_gallery_path + '/' + class_name):
         images[class_idx].append(file_name)
   return images
+
+
+def get_processed_img(img_path, preprocess_pipeline):
+  image = Image.open(img_path)
+  return preprocess_pipeline(image)
