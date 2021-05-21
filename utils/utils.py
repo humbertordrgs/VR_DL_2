@@ -1,4 +1,5 @@
 import os
+import time
 from PIL import Image
 from torchvision import transforms
 
@@ -36,7 +37,7 @@ def execution_time(func):
     start_time = time.time()
     res = func(*args, **kwargs)
     print(
-      "{function_name}: {time:.9f} seconds".format(
+      "{function_name}: {time:.5f} seconds".format(
         function_name=func._name_,
         time=(
           time.time() - start_time
