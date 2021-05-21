@@ -1,2 +1,7 @@
-# VR_DL_2
-Task2 Of Visual Reacognition using deep learning Using Siamese networks to solve Sketch based image retrieval problem
+## CC7221 Reconocimiento Visual con Deep Learning, Universidad de Chile
+Members: Humberto Rodrigues and David Rojas
+# Task 2: Siamese Networks for SBIR (Sketch Based Image Recognition)
+
+
+
+All tests, source code and data manipulation are inside the `.ipynb` in this repo, it is also available in [Colab Notebook Link]()
