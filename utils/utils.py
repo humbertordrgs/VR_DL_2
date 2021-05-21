@@ -30,3 +30,18 @@ def load_images(image_gallery_path):
 def get_processed_img(img_path):
   image = Image.open(img_path)
   return preprocess_pipeline(image)
+
+def execution_time(func):
+  def exec(*args, **kwargs):
+    start_time = time.time()
+    res = func(*args, **kwargs)
+    print(
+      "{function_name}: {time:.9f} seconds".format(
+        function_name=func._name_,
+        time=(
+          time.time() - start_time
+        )
+      )
+    )
+    return res
+  return exec
