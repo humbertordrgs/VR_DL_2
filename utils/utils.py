@@ -21,11 +21,10 @@ def get_class_map(mapping_file_path):
 def load_images(image_gallery_path): 
   images = {}
   if (os.path.isdir(image_gallery_path)):
-    for class_name in os.listdir(image_gallery_path):
-      if (os.path.isdir(class_name)):
-        if (class_name not in images):
+    for class_name in os.listdir(image_gallery_path):   
+      if (class_name not in images):
           images[class_name] = []
-        for file_name in os.listdir(image_gallery_path + '/' + class_name):
+      for file_name in os.listdir(image_gallery_path + '/' + class_name):
           images[class_name].append(file_name)
   return images
 
