@@ -11,14 +11,15 @@ from utils import load_images, get_class_map, get_processed_img, execution_time
 class SketchBasedImageRetrievalDataset(Dataset):
   
   @execution_time
-  def __init__(
+  def _init_(
     self, sketch_folder_path, sketch_index_file, \
-    image_gallery_folder_path, mapping_file_path, use_triplets = False, small_dataset = False \
+    image_gallery_folder_path, mapping_file_path, use_triplets = False, small_dataset=False \
   ):
 
     self.use_triplets = use_triplets
     self.sketches = []
     self.classes = []
+    self.negative_classes = []
     self.positive_images = []
     if use_triplets:
       self.negative_images = []
@@ -28,7 +29,7 @@ class SketchBasedImageRetrievalDataset(Dataset):
     index_file_path = sketch_folder_path + "/" + sketch_index_file
 
     with open(index_file_path, "r") as sketch_file:
-      # Proceded to reduce the size of the source datasets to 8000 due to hardware limitations
+      # Proceded to reduce the size of the source datasets to 100 due to hardware limitations
       if small_dataset:
         sketch_lines = random.sample(sketch_file.readlines(), 100)
       else:
@@ -49,15 +50,17 @@ class SketchBasedImageRetrievalDataset(Dataset):
           while True:
             negative_random_class_idx = str(random.randint(0, 249))
             if negative_random_class_idx != sketch_idx:
+
               negative_class = class_map[negative_random_class_idx]
               negative_random_image = sample(structured_images[negative_class], 1)[0]
               negative_image_path = f"{image_gallery_folder_path}/{negative_class}/{negative_random_image}"
+              self.negative_classes.append(int(negative_random_class_idx))
               self.negative_images.append(get_processed_img(negative_image_path))
               break
-  def __len__(self):
+  def _len_(self):
     return len(self.sketches)
 
-  def __getitem__(self, idx):
+  def _getitem_(self, idx):
     if self.use_triplets:
-      return (self.sketches[idx], self.positive_images[idx], self.negative_images[idx]), self.classes[idx]
-    return (self.sketches[idx], self.positive_images[idx]), self.classes[idx]
+      return (self.sketches[idx], self.positive_images[idx], self.negative_images[idx]), (self.classes[idx], self.negative_classes[idx])
+    return (self.sketches[idx], self.positive_images[idx]), (self.classes[idx])
