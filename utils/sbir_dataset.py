@@ -11,7 +11,7 @@ from utils import load_images, get_class_map, get_processed_img, execution_time
 class SketchBasedImageRetrievalDataset(Dataset):
   
   @execution_time
-  def _init_(
+  def __init__(
     self, sketch_folder_path, sketch_index_file, \
     image_gallery_folder_path, mapping_file_path, use_triplets = False, small_dataset=False \
   ):
@@ -57,10 +57,10 @@ class SketchBasedImageRetrievalDataset(Dataset):
               self.negative_classes.append(int(negative_random_class_idx))
               self.negative_images.append(get_processed_img(negative_image_path))
               break
-  def _len_(self):
+  def __len__(self):
     return len(self.sketches)
 
-  def _getitem_(self, idx):
+  def __getitem__(self, idx):
     if self.use_triplets:
       return (self.sketches[idx], self.positive_images[idx], self.negative_images[idx]), (self.classes[idx], self.negative_classes[idx])
     return (self.sketches[idx], self.positive_images[idx]), (self.classes[idx])
