@@ -13,7 +13,7 @@ class SketchBasedImageRetrievalDataset(Dataset):
   @execution_time
   def __init__(
     self, sketch_folder_path, sketch_index_file, \
-    image_gallery_folder_path, mapping_file_path, use_triplets = False \
+    image_gallery_folder_path, mapping_file_path, use_triplets = False, small_dataset = False \
   ):
 
     self.use_triplets = use_triplets
@@ -29,8 +29,10 @@ class SketchBasedImageRetrievalDataset(Dataset):
 
     with open(index_file_path, "r") as sketch_file:
       # Proceded to reduce the size of the source datasets to 8000 due to hardware limitations
-      # sketch_lines = sketch_file.readlines()
-      sketch_lines = random.sample(sketch_file.readlines(), 8000)
+      if small_dataset:
+        sketch_lines = random.sample(sketch_file.readlines(), 100)
+      else:
+        sketch_lines = sketch_file.readlines()
       for line in sketch_lines:
         sketch_path, sketch_idx = line.split()
         sketch_path = sketch_folder_path + "/" + sketch_path
