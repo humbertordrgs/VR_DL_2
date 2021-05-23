@@ -1,3 +1,5 @@
+import torch.nn as nn
+import torch.nn.functional as F
 class Conv1x1(nn.Module):
   def __init__(self, **kwargs):
     super(Conv1x1, self).__init__()
