@@ -62,5 +62,5 @@ class SketchBasedImageRetrievalDataset(Dataset):
 
   def __getitem__(self, idx):
     if self.use_triplets:
-      return (self.sketches[idx], self.positive_images[idx], self.negative_images[idx]), (self.classes[idx], self.negative_classes[idx])
-    return (self.sketches[idx], self.positive_images[idx]), (self.classes[idx])
+      return (self.sketches[idx], self.positive_images[idx], self.negative_images[idx]), (self.classes[idx], self.classes[idx], self.negative_classes[idx])
+    return (self.sketches[idx], self.positive_images[idx]), (self.classes[idx], self.classes[idx])
