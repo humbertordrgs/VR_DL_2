@@ -30,7 +30,7 @@ def load_images(image_gallery_path):
   return images
 
 def get_processed_img(img_path):
-  image = Image.open(img_path)
+  image = Image.open(img_path).convert('RGB')
   return preprocess_pipeline(image)
 
 def execution_time(func):
