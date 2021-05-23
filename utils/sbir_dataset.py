@@ -28,6 +28,8 @@ class SketchBasedImageRetrievalDataset(Dataset):
     index_file_path = sketch_folder_path + "/" + sketch_index_file
 
     with open(index_file_path, "r") as sketch_file:
+      # Proceded to reduce the size of the source datasets to 8000 due to hardware limitations
+      # sketch_lines = sketch_file.readlines()
       sketch_lines = random.sample(sketch_file.readlines(), 8000)
       for line in sketch_lines:
         sketch_path, sketch_idx = line.split()
