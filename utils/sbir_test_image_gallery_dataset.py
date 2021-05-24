@@ -4,7 +4,7 @@ from torch.utils.data import Dataset
 # External tool (built by us) to format the dataset structure
 from utils import load_images, get_processed_img, execution_time
 
-class SBIRImageGalleryTestDataset(Dataset):
+class SBIRTestImageGalleryDataset(Dataset):
   
   @execution_time
   def __init__(self, image_gallery_folder_path):
