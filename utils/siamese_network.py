@@ -153,3 +153,36 @@ class SiameseNet(nn.Module):
       logits.append(negative_logits)
 
     return embeddings, logits
+class SketchNet(nn.Module):
+  def __init__(self):
+    super(SketchNet, self).__init__()
+    
+    self.sketch_backbone = ResNet34Backbone()
+    self.common_seq = nn.Sequential(
+      nn.AvgPool2d(kernel_size=7,stride=1),
+      nn.Flatten(),
+      nn.Linear(512,512),
+      nn.BatchNorm1d(512),
+      nn.ReLU(),
+      nn.Linear(512,512)
+    )
+
+  def forward(self, input):    
+    return self.common_seq(self.sketch_backbone(input))
+
+class ImageNet(nn.Module):
+  def __init__(self):
+    super(ImageNet, self).__init__()
+    
+    self.image_backbone = ResNet34Backbone()
+    self.common_seq = nn.Sequential(
+      nn.AvgPool2d(kernel_size=7,stride=1),
+      nn.Flatten(),
+      nn.Linear(512,512),
+      nn.BatchNorm1d(512),
+      nn.ReLU(),
+      nn.Linear(512,512)
+    )
+
+  def forward(self, input):    
+    return self.common_seq(self.image_backbone(input))
